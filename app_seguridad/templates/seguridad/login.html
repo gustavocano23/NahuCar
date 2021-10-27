@@ -1,0 +1,28 @@
+{%extends 'base.html' %}
+
+{% block title %}Inicio de sesión{% endblock title %}
+
+
+{% block container %}
+
+    <div class="container">
+        <!--Creacion del formulario-->
+        <div class="row">
+            <div class="col">
+                <form action="{% url 'log_in' %}" method="post" >
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Usuario</label>
+                        <input type="text" class="form-control" id="username" name="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="text" class="form-control" id="password" name="password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock container %}
