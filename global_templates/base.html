@@ -8,11 +8,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'NahuCar/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'NahuCar/css/menu.css' %}">
+    {% block css %}{% endblock css %}
 </head>
-<body>
-    {% block container %}{% endblock container %}
 
+<body id="body">
+    <header>
+        <!--Boton para acceder al menu-->
+        <div class="icon-menu">
+            <i class="fas fa-bars" id="btn-open"></i>
+        </div>
+        {% block search %}{% endblock search %}
+    </header>
+
+     <div class="menu-side" id="menu-side">
+        
+        <div class="options-menu">	
+            <a href="" class="selected">
+                <div class="option">
+                    <i class="fas fa-home" title="Inicio"></i>
+                    <h4>Inicio</h4>
+                </div>
+            </a>
+            <a href="#">
+                <div class="option">
+                    <i class="fas fa-shopping-cart" title="Productos"></i>
+                    <h4>Inventario Productos</h4>
+                </div>
+            </a>
+            <a href="#">
+                <div class="option">
+                    <i class="fas fa-gas-pump" title="Combustible"></i>
+                    <h4>Inventario Combustible</h4>
+                </div>
+            </a>
+            <a href="#">
+                <div class="option">
+                    <i class="far fa-user" title="Empleado"></i>
+                    <h4>Empleados</h4>
+                </div>
+            </a>
+            <a href="#">
+                <div class="option">
+                    <i class="fas fa-chart-area" title="Analisis"></i>
+                    <h4>Analitica</h4>
+                </div>
+            </a>
+            <a href="#">
+                <div class="option">
+                    <i class="far fa-address-card" title="Nosotros"></i>
+                    <h4>Nosotros</h4>
+                </div>
+            </a>
+
+            <a href="#">
+                <div class="option">
+                    <i class="fas fa-sign-out-alt" title="Cerrar-sesion"></i>
+                    <h4>Cerrar Sesión</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <main>
+        {% block container %}{% endblock container %}
+    </main>
+
+
+
+
+
+    <script src="{% static 'NahuCar/js/41bcea2ae3.js' %}" crossorigin="anonymous"></script>
     <script src="{% static 'NahuCar/bootstrap/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'NahuCar/js/menu.js' %}"></script>
+
 
 </body>
 </html>

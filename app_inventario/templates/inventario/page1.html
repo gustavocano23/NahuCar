@@ -1,19 +1,23 @@
 {% extends 'base.html' %}
+{% load static %}
+
 
 {% block title %}Pagina 1{% endblock title %}
 
-{% block container %}
-    <div class="container">
-        <div class="row">
-            <div class="col-6">
-                <p>Soy la primera columna</p>
-            </div>
-            <div class="col-6">
-                <p>Soy la segunda columna</p>
-            </div>
-        </div>
+{% block css %}
+    <link rel="stylesheet" href="{% static 'NahuCar/css/input_search.css' %}">
+{% endblock css %}
 
-        <a href="{% url 'log_out' %}">Cerrar Sesion</a>
+{% block search %}
+    <input type="search" placeholder=" ¿Que desea buscar?">
+    <div class="user">
+        <i class="fas fa-user-circle"></i>
+        <p>Gustavo Cano</p>
     </div>
 
+{% endblock search %}
+
+
+{% block container %}
+    <h1>Estamos en home</h1>
 {% endblock container %}
