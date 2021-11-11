@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Historial{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'NahuCar/css/input_search.css' %}">
+    <link rel="stylesheet" href="{% static 'NahuCar/css/form.css' %}">
+    <link rel="stylesheet" href="{% static 'NahuCar/css/table.css' %}">
+    <link rel="stylesheet" href="{% static 'NahuCar/css/filter.css' %}">
+{% endblock css %}
+
+{% block search %}
+    <input type="search" placeholder=" ¿Que desea buscar?">
+{% endblock search %}
+
+
+{% block container %}
+    <div class="container ">
+        <div class="row">
+            <div class="filter-box">
+                <form action="" method="">
+                    <div style="display:flex;flex-direction:row;margin:auto;text-align:center;justify-content:center">
+                        <label style="margin:auto;font-Weight:bold;margin-right:5px"for="filter" class="form-label">Accion</label>
+                        <select name="filter" id="filter" class="form-select form-control-chosen">
+                            <option value="">Seleccione el producto</option>          
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <!--Tabla de productos-->
+            <div class="col-xl-12 col-lg-12 style-general-table">
+                <table class="table-products">
+                
+                    <thead>
+                        <tr>
+                            <td>Fecha</td>
+                            <td>Imagen</td>
+                            <td>Producto</td>
+                            <td>Precio</td>
+                            <td>Cantidad</td>
+                            <td>Precio Total</td>
+                            <td>Categoria</td>
+                            <td>Accion</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr >
+                           <td>2021/10/31</td>
+                           <td>
+                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
+                            </td>
+                           <td>Queso</td>
+                           <td>15</td>
+                           <td>4</td>
+                           <td>60</td>
+                           <td>Lacteos</td>
+                           <td>Compra</td>
+                        </tr>
+                         <tr >
+                           <td>2021/10/31</td>
+                           <td>
+                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
+                            </td>
+                           <td>Queso</td>
+                           <td>15</td>
+                           <td>4</td>
+                           <td>60</td>
+                           <td>Lacteos</td>
+                           <td>Compra</td>
+                        </tr>
+                         <tr >
+                           <td>2021/10/31</td>
+                           <td>
+                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
+                            </td>
+                           <td>Queso</td>
+                           <td>15</td>
+                           <td>4</td>
+                           <td>60</td>
+                           <td>Lacteos</td>
+                           <td>Compra</td>
+                        </tr>
+                        <tr >
+                           <td>2021/10/31</td>
+                           <td>
+                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
+                            </td>
+                           <td>Queso</td>
+                           <td>15</td>
+                           <td>4</td>
+                           <td>60</td>
+                           <td>Lacteos</td>
+                           <td>Compra</td>
+                        </tr>
+                        <tr >
+                           <td>2021/10/31</td>
+                           <td>
+                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
+                            </td>
+                           <td>Queso</td>
+                           <td>15</td>
+                           <td>4</td>
+                           <td>60</td>
+                           <td>Lacteos</td>
+                           <td>Compra</td>
+                        </tr>
+                        <tr >
+                           <td>2021/10/31</td>
+                           <td>
+                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
+                            </td>
+                           <td>Queso</td>
+                           <td>15</td>
+                           <td>4</td>
+                           <td>60</td>
+                           <td>Lacteos</td>
+                           <td>Compra</td>
+                        </tr>
+                        <tr >
+                           <td>2021/10/31</td>
+                           <td>
+                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
+                            </td>
+                           <td>Queso</td>
+                           <td>15</td>
+                           <td>4</td>
+                           <td>60</td>
+                           <td>Lacteos</td>
+                           <td>Compra</td>
+                        </tr>
+                        <tr >
+                           <td>2021/10/31</td>
+                           <td>
+                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
+                            </td>
+                           <td>Queso</td>
+                           <td>15</td>
+                           <td>4</td>
+                           <td>60</td>
+                           <td>Lacteos</td>
+                           <td>Compra</td>
+                        </tr>
+                        <tr >
+                           <td>2021/10/31</td>
+                           <td>
+                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
+                            </td>
+                           <td>Queso</td>
+                           <td>15</td>
+                           <td>4</td>
+                           <td>60</td>
+                           <td>Lacteos</td>
+                           <td>Compra</td>
+                        </tr>
+                    
+                        <tr >
+                           <td>2021/10/31</td>
+                           <td>
+                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
+                            </td>
+                           <td>Queso</td>
+                           <td>15</td>
+                           <td>4</td>
+                           <td>60</td>
+                           <td>Lacteos</td>
+                           <td>Compra</td>
+                        </tr>
+                        <tr >
+                           <td>2021/10/31</td>
+                           <td>
+                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
+                            </td>
+                           <td>Queso</td>
+                           <td>15</td>
+                           <td>4</td>
+                           <td>60</td>
+                           <td>Lacteos</td>
+                           <td>Compra</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+{% endblock container %}
+
+

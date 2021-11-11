@@ -13,22 +13,3 @@ input[type="search"]::placeholder{
     
 }
 
-.user{
-    display: flex;
-    margin-left: 30PX;
-    
-}
-
-.user i{
-    font-size: 40px;
-    margin: auto;
-    color: #AEAEAE;
-}
-
-.user p{
-    font-size: 20px;
-    padding: 5px;
-    margin: auto;
-    color: #AEAEAE;
-    font-weight: bold;
-}

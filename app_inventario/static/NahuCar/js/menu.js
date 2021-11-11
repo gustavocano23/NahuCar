@@ -23,13 +23,13 @@ if (window.innerWidth < 760){
 
 window.addEventListener("resize", function(){
 
-    if (window.innerWidth > 760){
+    if (window.innerWidth < 760){
 
         body.classList.remove("body-move");
         sideMenu.classList.remove("menu-side-move");
     }
 
-    if (window.innerWidth < 760){
+    if (window.innerWidth > 760){
 
         body.classList.add("body-move");
         sideMenu.classList.add("menu-side-move");
