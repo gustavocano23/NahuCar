@@ -33,11 +33,11 @@
                     <h4>Inventario</h4>
                 </div>
             </a>
-            
-            <a href="{% url 'NahuCar:products' %}" class="selected">
+            <!--Selected-->
+            <a href="{% url 'NahuCar:products' %}">
                 <div class="option">
-                    <i class="fas fa-home" title="Inicio"></i>
-                    <h4>Inicio</h4>
+                    <i class="fas fa-home" title="Producto"></i>
+                    <h4>Producto</h4>
                 </div>
             </a>
         
@@ -82,6 +82,7 @@
             $('.form-control-chosen').chosen();
         });
     </script>
+    {% block js %}{% endblock js %}
 
 
 </body>

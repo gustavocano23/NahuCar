@@ -1,0 +1,70 @@
+.container-analysis{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 2rem 1em;
+    
+}
+
+.box-analysis{
+    display: flex;
+    flex-direction: row;
+    height: 100px;
+    border-radius: 5px;
+    margin: 0;
+    padding: 0;
+    
+}
+.box-icon{
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    height: 100px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: #fff;
+
+
+}
+.box-description{
+    width: 50%;
+    height: 100px;
+    text-align: center;
+    padding: 10px;
+    font-size: 30px;
+    font-weight: bold;
+}
+.box-description h4{
+    margin-top: -15px;
+}
+#box-category{background-color: red;}
+#box-product{background-color: green;}
+#box-action{background-color: yellow;}
+
+/*Botones de insertar y retirar*/
+.btn-insert{
+    background-color: blue;
+    color: #fff;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.btn-remove{
+    background-color: orangered;
+    color: #fff;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+a:hover{
+    color: #fff;
+}
+
+/*Tabla de inventarios*/
+table{
+    border-collapse: collapse;
+}

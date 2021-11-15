@@ -22,33 +22,45 @@
             <div class="col-xl-3 col-lg-12 style-form">
                 <h1 class="title-form">Producto</h1>
                 <div class="border"></div>
-                <form action="" method="">
-                    <div class="mb-3">
-                        <label for="product-name" class="form-label">Foto del producto</label>
-                        <input type="file" class="form-control" alt="Submit" width="48" height="48">
-                    </div>
+                {% if product_by_id %}
+                    <form action="{% url 'NahuCar:update-product' product_by_id.id %}" method="post">
+                {% else %}
+                    <form action="{% url 'NahuCar:products' %}" method="post">
+                {% endif %}
+                
+                    {% csrf_token %}
                     <div class="mb-3">
                         <label for="product-name" class="form-label">Nombre del producto</label>
-                        <input type="text" class="form-control" id="product-name" name="product-name" placeholder="Ej. queso" >
+                        <input type="text" class="form-control" id="product-name" name="product-name" placeholder="Ej. queso" value={{product_by_id.product_name}} >
                     </div>
                     <div class="box-input-product">
                         <div class="mb-3">
                             <label for="price" class="form-label">Precio</label>
-                            <input type="text" class="form-control" id="price" name="price" placeholder="Ej. L.15">
+                            <input type="text" class="form-control" id="price" name="price" placeholder="Ej. L.15" value={{product_by_id.product_price}}>
                         </div>
                         <div class="mb-3 ms-3">
-                            <label for="stock" class="form-label">Existencia</label>
-                            <input type="text" class="form-control" id="stock"  name="stock" placeholder="Ej. 5">
+                            <label for="quantity" class="form-label">Existencia Inicial</label>
+                            <input type="text" class="form-control" id="quantity"  name="quantity" placeholder="Ej. 5" value={{product_by_id.product_existence}}>
                         </div>
                         
                     </div>
                     <div class="mb-3">
                         <label for="category-product" class="form-label">Categoria del producto</label>
-                        <input type="text" class="form-control" id="category-product" placeholder="Ej. Lacteos">
+                        <select name="category" id="category" class="form-select form-control-chosen" >
+                        <option value="{{product_by_id.category.id}}"> {{product_by_id.category.category_name}}</option> 
+                        {% for category in categories %}
+                            <option value="{{category.id}}">{{category.category_name}}</option> 
+                        {% endfor %}         
+                    </select>
                     </div>
-                    
+                                   
                     <div class="box-button">
-                        <button class="button-style">Guardar producto</button>
+                        {% if product_by_id %}
+                            <button id="btn-save-product" class="button-style">Actualizar producto</button>
+                        {% else %}
+                            <button id="btn-save-product" class="button-style">Guardar producto</button>
+                        {% endif %}
+                        
                     </div>
                 </form>
             </div>
@@ -59,158 +71,26 @@
                 <table class="table-products">
                     <thead>
                         <tr>
-                            <td>Imagen</td>
                             <td>Producto</td>
                             <td>Precio</td>
-                            <td>Cantidad</td>
+                            <td>Cantidad Inicial</td>
                             <td>Categoria</td>
                             <td>Editar/Eliminar</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr >
-                            <td>
-                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
-                            </td>
-                            <td>Queso</td>
-                            <td>15</td>
-                            <td>5</td>
-                            <td>Lacteos</td>
-                            <td>
-                                <a href="#"><i style="color:green" class="fas fa-edit"></i></a>
-                                <a href="#"><i style="color:red" class="fas fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                         <tr>
-                            <td>
-                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
-                            </td>
-                            <td>Queso</td>
-                            <td>15</td>
-                            <td>5</td>
-                            <td>Lacteos</td>
-                            <td>
-                                <a href="#"><i style="color:green" class="fas fa-edit"></i></a>
-                                <a href="#"><i style="color:red" class="fas fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                         <tr>
-                            <td>
-                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
-                            </td>
-                            <td>Queso</td>
-                            <td>15</td>
-                            <td>5</td>
-                            <td>Lacteos</td>
-                            <td>
-                                <a href="#"><i style="color:green" class="fas fa-edit"></i></a>
-                                <a href="#"><i style="color:red" class="fas fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                         <tr>
-                            <td>
-                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
-                            </td>
-                            <td>Queso</td>
-                            <td>15</td>
-                            <td>5</td>
-                            <td>Lacteos</td>
-                            <td>
-                                <a href="#"><i style="color:green" class="fas fa-edit"></i></a>
-                                <a href="#"><i style="color:red" class="fas fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                         <tr>
-                            <td>
-                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
-                            </td>
-                            <td>Queso</td>
-                            <td>15</td>
-                            <td>5</td>
-                            <td>Lacteos</td>
-                            <td>
-                                <a href="#"><i style="color:green" class="fas fa-edit"></i></a>
-                                <a href="#"><i style="color:red" class="fas fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
-                            </td>
-                            <td>Queso</td>
-                            <td>15</td>
-                            <td>5</td>
-                            <td>Lacteos</td>
-                            <td>
-                                <a href="#"><i style="color:green" class="fas fa-edit"></i></a>
-                                <a href="#"><i style="color:red" class="fas fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
-                            </td>
-                            <td>Queso</td>
-                            <td>15</td>
-                            <td>5</td>
-                            <td>Lacteos</td>
-                            <td>
-                                <a href="#"><i style="color:green" class="fas fa-edit"></i></a>
-                                <a href="#"><i style="color:red" class="fas fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
-                            </td>
-                            <td>Queso</td>
-                            <td>15</td>
-                            <td>5</td>
-                            <td>Lacteos</td>
-                            <td>
-                                <a href="#"><i style="color:green" class="fas fa-edit"></i></a>
-                                <a href="#"><i style="color:red" class="fas fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
-                            </td>
-                            <td>Queso</td>
-                            <td>15</td>
-                            <td>5</td>
-                            <td>Lacteos</td>
-                            <td>
-                                <a href="#"><i style="color:green" class="fas fa-edit"></i></a>
-                                <a href="#"><i style="color:red" class="fas fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
-                            </td>
-                            <td>Queso</td>
-                            <td>15</td>
-                            <td>5</td>
-                            <td>Lacteos</td>
-                            <td>
-                                <a href="#"><i style="color:green" class="fas fa-edit"></i></a>
-                                <a href="#"><i style="color:red" class="fas fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="https://www.tododisca.com/wp-content/uploads/2020/12/queso-suizo-elemental-Sistema-Inmunologico.jpg" alt="Queso" width="50" height="30">
-                            </td>
-                            <td>Queso</td>
-                            <td>15</td>
-                            <td>5</td>
-                            <td>Lacteos</td>
-                            <td>
-                                <a href="#"><i style="color:green" class="fas fa-edit"></i></a>
-                                <a href="#"><i style="color:red" class="fas fa-trash-alt"></i></a>
-                            </td>
-                        </tr>
+                        {% for product in products %}
+                            <tr>
+                                <td>{{product.product_name}}</td>
+                                <td>{{product.product_price}}</td>
+                                <td>{{product.product_existence}}</td>
+                                <td>{{product.category.category_name}}</td>
+                                <td>
+                                    <a href="{% url 'NahuCar:update-product' product.id %}"><i style="color:green" class="fas fa-edit"></i></a>
+                                    <a href="{% url 'NahuCar:delete-product' product.id %}"><i style="color:red" class="fas fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
 
                     </tbody>
                 </table>
@@ -219,3 +99,7 @@
         </div>
     </div>
 {% endblock container %}
+
+{% block js %}
+    <script src="{% static 'NahuCar/js/products.js' %}"></script>
+{% endblock js %}
