@@ -44,6 +44,12 @@
 #box-product{background-color: green;}
 #box-action{background-color: yellow;}
 
+/*Formulario de inventario*/
+.form-inventory{
+    padding: 20px;
+    font-size: 14px;
+
+}
 /*Botones de insertar y retirar*/
 .btn-insert{
     background-color: blue;

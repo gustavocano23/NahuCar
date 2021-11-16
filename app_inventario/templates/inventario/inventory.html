@@ -48,102 +48,80 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-        <table class="table mt-5">
-            <thead>
-                <tr>
-                    <th>Codigo</th>
-                    <th>Fecha de creacion</th>
-                    <th>Ultima modificacion</th>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Precio</th>
-                    <th>Categoria</th>
-                    <th>Accion</th>
-                </tr>
-            </thead>
+       
+        <div class="row mt-4 ">
+            <div class="col-3 shadow-lg style-form">
+                {% if inventory_by_id %}
+                    <h1 class="title-form">Acción</h1>
+                    <div class="border"></div>
+                    <p>Codigo del producto: {{inventory_by_id.id}}</p>
+                    <p>Empleado: {{request.user}}</p>
+                    <p>Nombre del producto:{{inventory_by_id.product.product_name}} </p>
+                    <p>Precio:{{inventory_by_id.product.product_price}} </p>
+                    <p>Existencia: {{inventory_by_id.product.product_existence}}</p>
+                    <hr>                       
+                    <form action="{% url 'NahuCar:inventory_update' inventory_by_id.id %}" method="post">  
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="action">Seleccionar accion</label>
+                            <select name="action" id="action" class="form-control-chosen">
+                                <option value="">Seleccionar</option>
+                                <option value="1">INSERTAR</option>
+                                <option value="2">RETIRAR</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="quantity">Cantidad</label>
+                            <input type="text" name="quantity" class="form-control">
+                        </div>
+                        <button class="button-style">Realizar operacion</button>
+                    </form>
+                {% else %}
+                    <i>No hay datos para mostrar</i>
+                {% endif %}  
+                
+            </div>
+            <div class="col-8 shadow-lg ms-5">
+                <table class="table-products mt-5">
+                    <thead>
+                        <tr>
+                            <td>Codigo</td>
+                            <td>Ultima modificacion</td>
+                            <td>Producto</td>
+                            <td>Cantidad</td>
+                            <td>Precio</td>
+                            <td>Categoria</td>
+                            <td>Accion</td>
+                        </tr>
+                    </thead>
 
-            <tbody>
+                    <tbody>
 
-            {% for inventory in inventories  %}
-                <tr>
-                    <td>{{inventory.id}}</td>
-                    <td>{{inventory.created_date}}</td>
-                    <td>{{inventory.updated_date}}</td>
-                    <td>{{inventory.product.product_name}}</td>
-                    <td>{{inventory.inventory_stock}}</td>
-                    <td>{{inventory.product.product_price}}</td>
-                    <td>{{inventory.product.category.category_name}}</td>
-                    <td>
-                       <button  
-                            id="show-inventory-info"
-                            class="btn btn-primary show-inventory-info" 
-                        >
-                            Modificar
-                        </button>
-                    </td>
+                        {% for inventory in inventories  %}
+                            <tr>
+                                <td>{{inventory.id}}</td>
+                                <td>{{inventory.updated_date}}</td>
+                                <td>{{inventory.product.product_name}}</td>
+                                <td>{{inventory.inventory_stock}}</td>
+                                <td>{{inventory.product.product_price}}</td>
+                                <td>{{inventory.product.category.category_name}}</td>
+                                <td>
+                                    <a href="{% url 'NahuCar:inventory_get' inventory.id %}">Modificar</a>
+                                    
+                                </td>
 
-                </tr>
-            
-            {% endfor %}
-            
-            </tbody>
-        </table>
+                            </tr>
+                        
+                        {% endfor %}
+                    
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
        
 
-<!-- Modal para insertar un producto-->
-<div class="modal fade modal-insert" tabindex="-1"  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Inserta o Retirar la nueva cantidad</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>
-        Codigo del producto: <p id="product-id">{{inventory_by_id.id}}</p>
-        </p>
-        <p id="employee-fullname">Empleado: {{request.user}}</p>
-        <p>
-            Nombre del producto: <p id="product-name"></p>
-        </p>
-        <p>
-        Precio: <p id="price"></p>
-        </p>
-        <p>
-            Existencia: <p id="stock"></p>
-        </p>
-        <hr>
-        <form action="">
-            <div class="mb-3">
-                <label for="type-action" class="form-label">Categoria del producto</label>
-                <select name="type-action" id="type-action" class="form-select form-control-chosen" >
-                    <option value="1"> Seleccionar Tipo de accion</option>        
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="quantity" class="form-label">Cantidad</label>
-                <input type="text" class="form-control" id="quantity"  name="quantity" >
-            </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button 
-            type="button" 
-            id="btn-update-inventory" 
-            data-action="234234" 
-            data-productId="185" 
-            class="btn btn-primary"
-        >
-            Realizar Accion
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 
 {% endblock container %}

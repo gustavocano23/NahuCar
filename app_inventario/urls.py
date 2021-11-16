@@ -12,13 +12,17 @@ urlpatterns = [
 
     #Url para Inventario
     path('inventory/', views.inventory, name='inventory'),
+    path('inventory/<int:uid>/', views.inventory, name='inventory_get'),
+    path('inventory/<int:uid>/', views.inventory, name='inventory_update'),
 
-
+    #Url para el Empleado
+    path('employee/', views.employee, name='employee'),
+    path('employee/update-employee/<int:uid>', views.updateEmployee, name = "update-employee"),
+    path('employee/delete-employee/<int:uid>',views.deleteEmployee, name='delete-employee'),
     #Url para historial
     path('history/', views.history, name='history'),
 
     #Todavia no se va programar
-    path('employee/', views.employee, name='employee'),
     path('analysis/', views.analysis, name='analysis'),
 
 ]
