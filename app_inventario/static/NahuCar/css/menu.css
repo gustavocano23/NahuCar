@@ -5,7 +5,7 @@
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
-    font-family: 'Alegreya Sans', sans-serif;
+    
 }
 
 body{
@@ -13,6 +13,7 @@ body{
     margin-top: 80px;
     transition: margin-left 300ms cubic-bezier(0.785, 0.135, 0.15, 0.86);
     background-color: #f5f5f5;
+    font-family: 'muli','sans-serif';
 }
 
 main{

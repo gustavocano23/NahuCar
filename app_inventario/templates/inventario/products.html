@@ -2,7 +2,7 @@
 {% load static %}
 
 
-{% block title %}Pagina 1{% endblock title %}
+{% block title %}Productos{% endblock title %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'NahuCar/css/input_search.css' %}">
@@ -11,7 +11,7 @@
 {% endblock css %}
 
 {% block search %}
-    <input type="search" placeholder=" ¿Que desea buscar?">
+    <input type="search" placeholder=" ¿Qué desea buscar?">
 {% endblock search %}
 
 
@@ -39,13 +39,13 @@
                             <input type="text" class="form-control" id="price" name="price" placeholder="Ej. L.15" value={{product_by_id.product_price}}>
                         </div>
                         <div class="mb-4 ms-3">
-                            <label for="quantity" class="form-label">Cant.Inicial</label>
+                            <label for="quantity" class="form-label">Cant. Inicial</label>
                             <input type="text" class="form-control" id="quantity"  name="quantity" placeholder="Ej. 5" value={{product_by_id.product_existence}}>
                         </div>
                         
                     </div>
                     <div class="mb-3">
-                        <label for="category-product" class="form-label">Categoria del producto</label>
+                        <label for="category-product" class="form-label">Categoría del producto</label>
                         <select name="category" id="category" class="form-select form-control-chosen" >
                         <option value="{{product_by_id.category.id}}"> {{product_by_id.category.category_name}}</option> 
                         {% for category in categories %}
@@ -74,7 +74,7 @@
                             <td>Producto</td>
                             <td>Precio</td>
                             <td>Cantidad Inicial</td>
-                            <td>Categoria</td>
+                            <td>Categoría</td>
                             <td>Editar/Eliminar</td>
                         </tr>
                     </thead>

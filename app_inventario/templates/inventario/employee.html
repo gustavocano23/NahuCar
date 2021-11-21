@@ -30,7 +30,7 @@
                 
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="employee-dni" class="form-label">Numero de identidad</label>
+                        <label for="employee-dni" class="form-label">Número de identidad</label>
                         <input type="text" class="form-control" id="employee-dni" name="employee-dni"  value={{employee_by_id.dni}} >
                     </div>
                     <div class="mb-3">
@@ -43,13 +43,13 @@
                         <input type="text" class="form-control" id="employee-last-name" name="employee-last-name"  value={{employee_by_id.last_name}}>
                     </div>
                     <div class="mb-3">
-                        <label for="employee-telphone" class="form-label">Telefono del empleado</label>
+                        <label for="employee-telphone" class="form-label">Teléfono del empleado</label>
                         <input type="text" class="form-control" id="employee-telphone"  name="employee-telphone"  value={{employee_by_id.telphone}}>
                     </div>
                         
 
                     <div class="mb-3">
-                        <label for="employee-address" class="form-label">Direccion del empleado</label>
+                        <label for="employee-address" class="form-label">Dirección del empleado</label>
                         <textarea class="form-control" id="employee-address"  name="employee-address">{{employee_by_id.address}}</textarea>
                     </div>
                                    
@@ -73,9 +73,9 @@
                             <td>DNI</td>                        
                             <td>Nombre</td>
                             <td>Apellido</td>
-                            <td>Dirrecion</td>
-                            <td>Telefono</td>
-                            <td>Editar/Eliminar</td>
+                            <td>Direción</td>
+                            <td>Teléfono</td>
+                            <td>Editar / Eliminar</td>
                         </tr>
                     </thead>
                     <tbody>
