@@ -11,7 +11,7 @@
 {% endblock css %}
 
 {% block search %}
-    <input type="search" placeholder=" ¿Que desea buscar?">
+    <input type="search" placeholder=" ¿Qué desea buscar?">
 {% endblock search %}
 
 
@@ -87,8 +87,8 @@
                                 <td>{{employee.address}}</td>
                                 <td>{{employee.telphone}}</td>
                                 <td>
-                                    <a href="{% url 'NahuCar:update-employee' employee.id %}"><i style="color:green" class="fas fa-edit"></i></a>
-                                    <a href="{% url 'NahuCar:delete-employee' employee.id %}"><i style="color:red" class="fas fa-trash-alt"></i></a>
+                                    <a href="{% url 'NahuCar:update-employee' employee.id %}"><i style="color:#22c987" class="fas fa-edit"></i></a>
+                                    <a href="{% url 'NahuCar:delete-employee' employee.id %}"><i style="color:#ca3422" class="fas fa-trash-alt"></i></a>
                                 </td>
                             </tr>
                         {% endfor %}

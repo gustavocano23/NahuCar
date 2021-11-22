@@ -22,10 +22,12 @@
     
 }
 
-
+.table-products a{
+    color: #2263c9;
+}
 
 .table-products thead td{
-    color: #1D2261;
+    color: #000000;
     font-weight: bold;
 
    

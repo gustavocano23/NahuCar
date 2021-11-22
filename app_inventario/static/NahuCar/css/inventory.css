@@ -40,9 +40,9 @@
 .box-description h4{
     margin-top: -15px;
 }
-#box-category{background-color: red;}
-#box-product{background-color: green;}
-#box-action{background-color: yellow;}
+#box-category{background-color: #ca3422;}
+#box-product{background-color: #2263c9;}
+#box-action{background-color: #22c987;}
 
 /*Formulario de inventario*/
 .form-inventory{
