@@ -12,7 +12,9 @@
 {% endblock css %}
 
 {% block search %}
-    <input type="search" placeholder=" ¿Que desea buscar?">
+    <form action="{% url 'NahuCar:history' %}" method="get">
+        <input style="width:100vh;"type="search" name="q" value="{{ q|default_if_none:'' }}" class="form-control" autocomplete="off" placeholder=" ¿Que desea buscar?">
+    </form>
 {% endblock search %}
 
 
