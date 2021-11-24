@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Inventario{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'NahuCar/css/input_search.css' %}">
+    <link rel="stylesheet" href="{% static 'NahuCar/css/form.css' %}">
+    <link rel="stylesheet" href="{% static 'NahuCar/css/table.css' %}">
+     <link rel="stylesheet" href="{% static 'NahuCar/css/inventory.css' %}">
+{% endblock css %}
+
+{% block search %}
+    <input type="search" placeholder=" ¿Qué desea buscar?">
+{% endblock search %}
+
+
+{% block container %}
+    <div class="container">
+        <div class="row container-analysis">
+            <div class="box-analysis shadow-lg">
+                <div id="box-category" class="box-icon">
+                    <i class="fas fa-list-ul"></i>
+                </div>
+                <div class="box-description">
+                    <p>{{count_categories}}</p>
+                    <h4>Categoría</h4>
+                </div>
+            </div>
+            <div class="box-analysis shadow-lg">
+                <div id="box-product" class="box-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="box-description">
+                    <p>{{count_products}}</p>
+                    <h4>Productos</h4>
+                </div>
+            </div>
+                
+            <div class="box-analysis shadow-lg">
+                <div id="box-action" class="box-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="box-description">
+                    <p>{{count_inventory}}</p>
+                    <h4>Acciones</h4>
+                </div>
+            </div>
+        </div>
+       
+        <div class="row mt-4 ">
+            <div class="alert alert-primary" style="background-color: #22c987; color: white; width: 92%;" role="alert">
+                ¡La cantidad a retirar es mayor a las existencias!
+            </div>
+            <div class="col-3 shadow-lg style-form">
+                {% if inventory_by_id %}
+                    <h1 class="title-form">Acción</h1>
+                    <div class="border"></div>
+                    <p>Código del producto: {{inventory_by_id.id}}</p>
+                    <p>Empleado: {{request.user}}</p>
+                    <p>Nombre del producto:{{inventory_by_id.product.product_name}} </p>
+                    <p>Precio:{{inventory_by_id.product.product_price}} </p>
+                    <p>Existencia: {{inventory_by_id.product.product_existence}}</p>
+                    <hr>                       
+                    <form action="{% url 'NahuCar:inventory_update' inventory_by_id.id %}" method="post">  
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="action">Seleccionar acción</label>
+                            <select name="action" id="action" class="form-control-chosen">
+                                <option value="">Seleccionar</option>
+                                <option value="1">Insertar</option>
+                                <option value="2">Retirar</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="quantity">Cantidad</label>
+                            <input type="text" name="quantity" class="form-control">
+                        </div>
+                        <button class="button-style">Realizar operación</button>
+                    </form>
+                {% else %}
+                    <i>No hay datos para mostrar.</i>
+                {% endif %}  
+                
+            </div>
+            <div class="col-8 shadow-lg ms-5">
+                <table class="table-products mt-5">
+                    <thead>
+                        <tr>
+                            <td>Código</td>
+                            <td>Última modificación</td>
+                            <td>Producto</td>
+                            <td>Cantidad</td>
+                            <td>Precio</td>
+                            <td>Categoría</td>
+                            <td>Acción</td>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for inventory in inventories  %}
+                            <tr>
+                                <td>{{inventory.id}}</td>
+                                <td>{{inventory.updated_date}}</td>
+                                <td>{{inventory.product.product_name}}</td>
+                                <td>{{inventory.inventory_stock}}</td>
+                                <td>{{inventory.product.product_price}}</td>
+                                <td>{{inventory.product.category.category_name}}</td>
+                                <td>
+                                    <a href="{% url 'NahuCar:inventory_get' inventory.id %}">Modificar</a>
+                                    
+                                </td>
+
+                            </tr>
+                        
+                        {% endfor %}
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+       
+
+
+
+
+{% endblock container %}
+
+{% block js %}
+    <script src="{% static 'NahuCar/js/inventory.js' %}"></script>
+{% endblock js %}
+
+

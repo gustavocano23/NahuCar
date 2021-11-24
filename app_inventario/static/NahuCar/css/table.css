@@ -1,0 +1,52 @@
+.title-table{
+    text-align: center;
+}
+
+
+.table-products{
+    width: 100%;
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 0px 3px;
+    
+}
+
+
+.table-products img {
+    border-radius: 5px;
+}
+
+.table-products thead, tbody, tr, td{
+    padding: 15px;
+
+    
+}
+
+.table-products a{
+    color: #2263c9;
+}
+.table-products a:hover{
+    color: #2263c9;
+}
+
+.table-products thead td{
+    color: #000000;
+    font-weight: bold;
+
+   
+}
+
+.table-products tbody tr{
+    background-color: #fff;
+
+    
+
+}
+
+.table-products tbody td{
+    font-size: 17px;
+    color: #7D7F7D;
+    border-bottom: 1px solid rgb(0, 0, 0, 0.1);
+    
+}
+

@@ -8,7 +8,7 @@ from django.http import HttpResponse
 # Verificar si el usuario esta autenticado en nuestra app web
 def page_login(request):
     if request.user.is_authenticated:
-        return redirect(reverse('NahuCar:page1'))   
+        return redirect(reverse('NahuCar:inventory'))   
     return render(request, 'seguridad/login.html')
 
 # Iniciar sesion 
@@ -21,7 +21,7 @@ def log_in(request):
 
         if user is not None:
             login(request, user)
-            return redirect(reverse('NahuCar:page1'))   
+            return redirect(reverse('NahuCar:inventory'))   
         else:
             return redirect('/')
 
