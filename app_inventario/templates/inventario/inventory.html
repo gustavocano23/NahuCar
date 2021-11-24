@@ -21,6 +21,7 @@
 {% block container %}
     <div class="container">
         <div class="row container-analysis">
+            
             <div class="box-analysis shadow-lg">
                 <div id="box-category" class="box-icon">
                     <i class="fas fa-list-ul"></i>
@@ -52,9 +53,13 @@
         </div>
        
         <div class="row mt-4 ">
-            <div class="alert alert-primary" style="background-color: #22c987; color: white; width: 92%;" role="alert">
-                ¡La cantidad a retirar es mayor a las existencias!
-            </div>
+            {% if messages %}
+                <div class="alert alert-primary" style="background-color: #ca3422; color: white; width: 92%;" role="alert">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
             <div class="col-3 shadow-lg style-form">
                 {% if inventory_by_id %}
                     <h1 class="title-form">Acción</h1>

@@ -78,10 +78,17 @@
     <script src="{% static 'NahuCar/bootstrap/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'NahuCar/js/menu.js' %}"></script>
     <script src="https://haubek.github.io/dist/js/chosen.jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"> </script>
 
     <script>
         $(function () {
             $('.form-control-chosen').chosen();
+
+            setTimeout(() => {
+                $('.alert').slideUp(function () {
+                    $(this).remove();
+                });
+            }, 3000)
         });
     </script>
     {% block js %}{% endblock js %}

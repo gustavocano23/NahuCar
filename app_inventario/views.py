@@ -3,6 +3,9 @@ from django.urls import reverse
 from django.http import JsonResponse
 from .models import *
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
+from django.contrib import messages
 
 
 #<== Pagina de productos ==>
@@ -77,6 +80,7 @@ def products(request):
             type_action = 1,
         )
         history.save()
+        messages.add_message(request, messages.INFO, f'Se ha registrado el producto correctamente')  
         return redirect(reverse("NahuCar:products"))
 #Actualizar datos
 @login_required
@@ -111,7 +115,7 @@ def updateProduct(request, uid):
         product_by_id.category = id_category
         product_by_id.save()
 
-
+        messages.add_message(request, messages.INFO, f'Se ha actualizado el producto correctamente') 
         return redirect(reverse("NahuCar:products"))
 #Desactivar datos de producto seleccionado por el usuario
 @login_required
@@ -119,6 +123,7 @@ def deleteProduct(request, uid):
     product_by_id = get_object_or_404(Product, pk=uid)
     product_by_id.product_active = "0"
     product_by_id.save()
+    messages.add_message(request, messages.INFO, f'Se ha borrado el producto correctamente') 
     return redirect(reverse('NahuCar:products'))
 
 #<== Pagina de Inventario ==>
@@ -209,10 +214,16 @@ def inventory(request,uid=None):
                     inventory = id_inventory
                 )
                 history.save()
+
+                messages.add_message(request, messages.INFO, f'Se ha actualizado el inventario') 
                 return redirect(reverse('NahuCar:inventory'))
+            else:
+                messages.add_message(request, messages.INFO, f'La cantidad debe de ser mayor que 0')
+                return redirect(reverse('NahuCar:inventory')) 
         elif (action == 2):
             if (inventory_by_id.inventory_stock < quantity):
-                return
+                messages.add_message(request, messages.INFO, f'La cantidad no debe ser mayor a la cantidad inventariada')
+                return redirect(reverse('NahuCar:inventory'))
             else:
                 #Actualizar el Inventario
                 inventory_by_id.inventory_stock -= quantity
@@ -227,6 +238,7 @@ def inventory(request,uid=None):
                     inventory = id_inventory
                 )
                 history.save()
+                messages.add_message(request, messages.INFO, f'Se actualizo el inventario correctamente')
                 return redirect(reverse('NahuCar:inventory'))
 
 
@@ -265,7 +277,7 @@ def employee(request):
         telphone = request.POST.get('employee-telphone')
         address = request.POST.get('employee-address')
 
-        #Almacenar los valore en la base de datos
+        #Almacenar los valores en la base de datos
 
         employees = Employee(
             dni = dni,
@@ -275,6 +287,28 @@ def employee(request):
             telphone = telphone,
         )
         employees.save()
+
+        password = make_password("123ABcd.")
+
+        #traer el ultimo empleado a registrado
+        last_employee = Employee.objects.all().last()
+        username = f'{employee_name[0]}{employee_lastName}'
+        user = User(
+            username = username,
+            password = password,
+        )
+        user.save()
+
+        #traer el ultimo usuario ingresado
+        last_user = User.objects.all().last()
+
+        #Instancia del ultimo usuario
+        last_user_id = User.objects.get(pk=last_user.pk)
+
+        #Asignar el usuario y la contraseña
+        last_employee.user = last_user_id
+        last_employee.save()     
+        messages.add_message(request, messages.INFO, f'Se ha guardado con exito, El usuario es: {username}')   
         return redirect(reverse('NahuCar:employee'))
 
 @login_required
@@ -306,12 +340,14 @@ def updateEmployee(request, uid):
         employee_by_id.telphone =  telphone
         employee_by_id.address = address
         employee_by_id.save()
+        messages.add_message(request, messages.INFO, f'Se ha actualizado el empleado correctamente')
         return redirect(reverse('NahuCar:employee'))
 
 @login_required
 def deleteEmployee(request,uid):
     employee_by_id = Employee.objects.get(pk=uid)
     employee_by_id.delete()
+    messages.add_message(request, messages.INFO, f'Se ha borrado el empleado correctamente')
     return redirect(reverse('NahuCar:employee'))
 
 @login_required
