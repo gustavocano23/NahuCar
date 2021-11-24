@@ -13,7 +13,25 @@ def products(request):
     #<== Mostrar informacion en el template products ==>
     if (request.method == "GET"):
         categories = Categories.objects.all()
-        products = Product.objects.all().filter(product_active="1")
+        
+        # Obtiene el valor a buscar
+        q = request.GET.get('q')
+
+        # Motor de busqueda
+        if q:
+            if Product.objects.filter(product_name__startswith=q,product_active="1"):
+                products = Product.objects.filter(product_name__startswith=q,product_active="1")
+            elif Product.objects.filter(product_price__startswith=q,product_active="1"):
+                products = Product.objects.filter(product_price__startswith=q,product_active="1")
+            elif Product.objects.filter(product_existence__startswith=q,product_active="1"):
+                products = Product.objects.filter(product_existence__startswith=q,product_active="1")
+            elif Product.objects.filter(category__category_name__startswith=q,product_active="1"):
+                products = Product.objects.filter(category__category_name__startswith=q,product_active="1")
+            else:
+                products = Product.objects.all().filter(product_active="1")
+        else:
+            products = Product.objects.all().filter(product_active="1")
+        
         ctx = {
             "categories": categories,
             "products":products,
@@ -113,6 +131,35 @@ def inventory(request,uid=None):
         products =  Product.objects.all()
         inventory = Inventories.objects.all()
         history = InventoriesHistory.objects.all()
+        
+        # Obtiene el valor a buscar
+        q = request.GET.get('q')
+        
+        # Motor de busqueda
+        if q:
+            if Inventories.objects.filter(id__startswith=q):
+                inventory = Inventories.objects.filter(id__startswith=q).order_by('id')
+            elif Inventories.objects.filter(updated_date__startswith=q):
+                inventory = Inventories.objects.filter(updated_date__startswith=q).order_by('updated_date')
+            elif Inventories.objects.filter(inventory_stock__startswith=q):
+                inventory = Inventories.objects.filter(inventory_stock__startswith=q).order_by('inventory_stock')
+            elif Product.objects.filter(product_name__startswith=q):
+                inventory = Inventories.objects.filter(product__product_name__startswith=q)
+            elif Product.objects.filter(product_price__startswith=q):
+                inventory = Inventories.objects.filter(product__product_price__startswith=q)
+            elif Categories.objects.filter(category_name__startswith=q):
+                category_resultado = Categories.objects.filter(category_name__startswith=q)
+                inventario = ""
+                for x in category_resultado:
+                    if Product.objects.filter(category=x):
+                        inventory = Inventories.objects.filter(product__category=x)
+                    elif inventario=="":
+                        inventory = Inventories.objects.all()
+            else:
+                inventory = Inventories.objects.all()
+        else:
+            inventory = Inventories.objects.all()
+
         ctx = {
             "count_categories": len(categories), 
             "count_products": len(products),
@@ -124,9 +171,10 @@ def inventory(request,uid=None):
     elif (request.method == "GET" and uid is not None):
         categories =Categories.objects.all()
         products =  Product.objects.all()
-        inventory = Inventories.objects.all()
         history = InventoriesHistory.objects.all()
         inventory_by_id = get_object_or_404(Inventories, pk=uid)
+        inventory = Inventories.objects.all()
+
         ctx = {
             "count_categories": len(categories), 
             "count_products": len(products),
@@ -186,7 +234,27 @@ def inventory(request,uid=None):
 @login_required
 def employee(request):
     if (request.method == "GET"):
-        employees = Employee.objects.all()
+
+        # Obtiene el valor a buscar
+        q = request.GET.get('q')
+
+        # Motor de busqueda
+        if q:
+            if Employee.objects.filter(dni__startswith=q):
+                employees = Employee.objects.filter(dni__startswith=q)
+            elif Employee.objects.filter(first_name__startswith=q):
+                employees = Employee.objects.filter(first_name__startswith=q)
+            elif Employee.objects.filter(last_name__startswith=q):
+                employees = Employee.objects.filter(last_name__startswith=q)
+            elif Employee.objects.filter(address__startswith=q):
+                employees = Employee.objects.filter(address__startswith=q)
+            elif Employee.objects.filter(telphone__startswith=q):
+                employees = Employee.objects.filter(telphone__startswith=q)
+            else:
+                employees = Employee.objects.all()
+        else:
+            employees = Employee.objects.all()
+
         ctx = {"employees":employees}
         return render(request, 'inventario/employee.html', ctx)
     elif (request.method == "POST"):
@@ -249,6 +317,27 @@ def deleteEmployee(request,uid):
 @login_required
 def history(request):
     histories = InventoriesHistory.objects.all()[::-1]
+
+    # Obtiene el valor a buscar
+    q = request.GET.get('q')
+
+    # Motor de busqueda
+    if q:
+        if InventoriesHistory.objects.filter(id__startswith=q):
+            histories = InventoriesHistory.objects.filter(id__startswith=q)[::-1]
+        elif InventoriesHistory.objects.filter(inventory__product__product_name__startswith=q):
+            histories = InventoriesHistory.objects.filter(inventory__product__product_price__startswith=q)[::-1]
+        elif InventoriesHistory.objects.filter(inventory__product__product_price__startswith=q):
+            histories = InventoriesHistory.objects.filter(inventory__product__product_price__startswith=q)[::-1]
+        elif InventoriesHistory.objects.filter(quantity__startswith=q):
+            histories = InventoriesHistory.objects.filter(quantity__startswith=q)[::-1]
+        elif InventoriesHistory.objects.filter(inventory__product__category__category_name__startswith=q):
+            histories = InventoriesHistory.objects.filter(inventory__product__category__category_name__startswith=q)[::-1]
+        else:
+            histories = InventoriesHistory.objects.all()[::-1]
+    else:
+        histories = InventoriesHistory.objects.all()[::-1]
+
     ctx = {"histories":histories}
     return render(request, 'inventario/history.html',ctx)
 
