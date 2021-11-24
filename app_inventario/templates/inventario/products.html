@@ -2,12 +2,12 @@
 {% load static %}
 
 
-{% block title %}Pagina 1{% endblock title %}
+{% block title %}Productos{% endblock title %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'NahuCar/css/input_search.css' %}">
-    <link rel="stylesheet" href="{% static 'NahuCar/css/form.css' %}">
-    <link rel="stylesheet" href="{% static 'NahuCar/css/table.css' %}">
+<link rel="stylesheet" href="{% static 'NahuCar/css/input_search.css' %}">
+<link rel="stylesheet" href="{% static 'NahuCar/css/form.css' %}">
+<link rel="stylesheet" href="{% static 'NahuCar/css/table.css' %}">
 {% endblock css %}
 
 {% block search %}
@@ -18,96 +18,109 @@
 
 
 {% block container %}
-    <div class="container ">
-        <div class="row box-container">
-            <!--Formulario-->
-            <div class="col-xl-3 col-lg-12 style-form">
-                <h1 class="title-form">Producto</h1>
-                <div class="border"></div>
-                {% if product_by_id %}
-                    <form id="form-product" action="{% url 'NahuCar:update-product' product_by_id.id %}" method="post">
+<div class="container ">
+
+    <div class="row box-container">
+        <div class="alert alert-primary" style="background-color: #ca3422; color: white; width: 92%;" role="alert">
+            ¡La cantidad a retirar es mayor a las existencias!
+        </div>
+        <!--Formulario-->
+        <div class="col-xl-3 col-lg-12 style-form">
+            <h1 class="title-form">Producto</h1>
+            <div class="border"></div>
+            {% if product_by_id %}
+            <form id="form-product" action="{% url 'NahuCar:update-product' product_by_id.id %}" method="post">
                 {% else %}
-                    <form id="form-product" action="{% url 'NahuCar:products' %}" method="post">
-                {% endif %}
-                
+                <form id="form-product" action="{% url 'NahuCar:products' %}" method="post">
+                    {% endif %}
+
                     {% csrf_token %}
                     <div class="mb-4">
                         <label for="product-name" class="form-label">Nombre del producto</label>
-                        <input type="text" class="form-control" id="product-name" name="product-name" placeholder="Ej. queso" value={{product_by_id.product_name}} >
+                        <input type="text" class="form-control" id="product-name" name="product-name"
+                            placeholder="Ej. queso" value={{product_by_id.product_name}}>
                     </div>
                     <div class="box-input-product">
                         <div class="mb-4">
                             <label for="price" class="form-label">Precio</label>
-                            <input type="text" class="form-control" id="price" name="price" placeholder="Ej. L.15" value={{product_by_id.product_price}}>
+                            <input type="text" class="form-control" id="price" name="price" placeholder="Ej. L.15"
+                                value={{product_by_id.product_price}}>
                         </div>
                         <div class="mb-4 ms-3">
-                            <label for="quantity" class="form-label">Cant.Inicial</label>
-                            <input type="text" class="form-control" id="quantity"  name="quantity" placeholder="Ej. 5" value={{product_by_id.product_existence}}>
+                            <label for="quantity" class="form-label">Cant. Inicial</label>
+                            <input type="text" class="form-control" id="quantity" name="quantity" placeholder="Ej. 5"
+                                value={{product_by_id.product_existence}}>
                         </div>
-                        
+
                     </div>
                     <div class="mb-3">
-                        <label for="category-product" class="form-label">Categoria del producto</label>
-                        <select name="category" id="category" class="form-select form-control-chosen" >
-                        <option value="{{product_by_id.category.id}}"> {{product_by_id.category.category_name}}</option> 
-                        {% for category in categories %}
-                            <option value="{{category.id}}">{{category.category_name}}</option> 
-                        {% endfor %}         
-                    </select>
+                        <label for="category-product" class="form-label">Categoría del producto</label>
+                        <select name="category" id="category" class="form-select form-control-chosen">
+                            <option value="{{product_by_id.category.id}}"> {{product_by_id.category.category_name}}
+                            </option>
+                            {% for category in categories %}
+                            <option value="{{category.id}}">{{category.category_name}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                                   
+
                     <div class="box-button">
                         {% if product_by_id %}
-                            <button id="btn-save-product" type = "button" class="button-style">Actualizar producto</button>
+                        <button id="btn-save-product" type="button" class="button-style">Actualizar producto</button>
                         {% else %}
-                            <button id="btn-save-product" type = "button" class="button-style">Guardar producto</button>
+                        <button id="btn-save-product" type="button" class="button-style">Guardar producto</button>
                         {% endif %}
-                        
+
                     </div>
                 </form>
-            </div>
-            <!--Tabla de productos-->
-            <div class="col-xl-8 col-lg-12 style-general-table">
-        
+        </div>
+        <!--Tabla de productos-->
+        <div class="col-xl-8 col-lg-12 style-general-table">
 
-                <table class="table-products">
-                    <thead>
-                        <tr>
-                            <td>Producto</td>
-                            <td>Precio</td>
-                            <td>Cantidad Inicial</td>
-                            <td>Categoria</td>
-                            <td>Editar/Eliminar</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for product in products %}
-                            <tr>
-                                <td>{{product.product_name}}</td>
-                                <td>{{product.product_price}}</td>
-                             
-                                {% if product.category.category_name == 'Combustible' %}
-                                    <td>{{product.product_existence}} gal.</td>
-                                {% else %}
-                                    <td>{{product.product_existence}} uni.</td>
-                                {% endif %}
 
-                                <td>{{product.category.category_name}}</td>
-                                <td>
-                                    <a href="{% url 'NahuCar:update-product' product.id %}"><i style="color:green" class="fas fa-edit"></i></a>
-                                    <a href="{% url 'NahuCar:delete-product' product.id %}"><i style="color:red" class="fas fa-trash-alt"></i></a>
-                                </td>
-                            </tr>
-                        {% endfor %}
+            <table class="table-products">
+                <thead>
+                    <tr>
+                        <td>Producto</td>
+                        <td>Precio</td>
+                        <td>Cantidad Inicial</td>
+                        <td>Categoría</td>
+                        <td>Editar/Eliminar</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{product.product_name}}</td>
+                        {% if product.category.category_name == 'Combustible' %}
+                        <td>{{product.product_price}}</td>
+                        {% else %}
+                        <td>{{product.product_price}} c/u</td>
+                        {% endif %}
+                        {% if product.category.category_name == 'Combustible' %}
+                        <td>{{product.product_existence}} gal.</td>
+                        {% else %}
+                        <td>{{product.product_existence}} uds.</td>
+                        {% endif %}
 
-                    </tbody>
-                </table>
-                
-            </div>
+                        <td>{{product.category.category_name}}</td>
+                        <td>
+                            <a href="{% url 'NahuCar:update-product' product.id %}"><i style="color:#22c987"
+                                    class="fas fa-edit"></i></a>
+                            <a href="{% url 'NahuCar:delete-product' product.id %}"><i style="color:#ca3422"
+                                    class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
         </div>
     </div>
+</div>
 {% endblock container %}
 
 {% block js %}
-    <script src="{% static 'NahuCar/js/products.js' %}"></script>
+<script src="{% static 'NahuCar/js/products.js' %}"></script>
 {% endblock js %}

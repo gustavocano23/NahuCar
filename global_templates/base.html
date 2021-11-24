@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'NahuCar/bootstrap/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'NahuCar/css/menu.css' %}">
     <link href="https://haubek.github.io/dist/css/component-chosen.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet'>
     {% block css %}{% endblock css %}
 </head>
 
@@ -22,12 +24,12 @@
         {% block search %}{% endblock search %}
     </header>
 
-     <div class="menu-side" id="menu-side">
+    <div class="menu-side" id="menu-side">
 
-    
-        <div class="options-menu">	
 
-         <a href="{% url 'NahuCar:inventory' %}">
+        <div class="options-menu">
+
+            <a href="{% url 'NahuCar:inventory' %}">
                 <div class="option">
                     <i class="fas fa-gas-pump" title="Combustible"></i>
                     <h4>Inventario</h4>
@@ -36,21 +38,22 @@
             <!--Selected-->
             <a href="{% url 'NahuCar:products' %}">
                 <div class="option">
-                    <i class="fas fa-home" title="Producto"></i>
+                    <i class="fas fa-shopping-cart" title="Producto"></i>
                     <h4>Producto</h4>
                 </div>
             </a>
-        
-            
+
+            {% if request.user.is_superuser %}
             <a href="{% url 'NahuCar:employee' %}">
                 <div class="option">
                     <i class="far fa-user" title="Empleado"></i>
                     <h4>Empleados</h4>
                 </div>
             </a>
+            {% endif %}
             <a href="{% url 'NahuCar:history' %}">
                 <div class="option">
-                    <i class="far fa-address-card" title="Historial"></i>
+                    <i class="far fa-clipboard" title="Historial"></i>
                     <h4>Historial</h4>
                 </div>
             </a>
@@ -86,4 +89,5 @@
 
 
 </body>
+
 </html>
