@@ -35,20 +35,22 @@
                 </div>
             </a>
             <!--Selected-->
-            <a href="{% url 'NahuCar:products' %}">
-                <div class="option">
-                    <i class="fas fa-shopping-cart" title="Producto"></i>
-                    <h4>Producto</h4>
-                </div>
-            </a>
+            
 
             {% if request.user.is_superuser %}
-            <a href="{% url 'NahuCar:employee' %}">
-                <div class="option">
-                    <i class="far fa-user" title="Empleado"></i>
-                    <h4>Empleados</h4>
-                </div>
-            </a>
+                <a href="{% url 'NahuCar:products' %}">
+                    <div class="option">
+                        <i class="fas fa-shopping-cart" title="Producto"></i>
+                        <h4>Producto</h4>
+                    </div>
+                </a>
+
+                <a href="{% url 'NahuCar:employee' %}">
+                    <div class="option">
+                        <i class="far fa-user" title="Empleado"></i>
+                        <h4>Empleados</h4>
+                    </div>
+                </a>
             {% endif %}
             <a href="{% url 'NahuCar:history' %}">
                 <div class="option">

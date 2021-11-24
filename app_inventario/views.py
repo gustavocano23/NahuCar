@@ -292,7 +292,7 @@ def employee(request):
 
         #traer el ultimo empleado a registrado
         last_employee = Employee.objects.all().last()
-        username = f'{employee_name[0]}{employee_lastName}'
+        username = f'{employee_name[0].lower()}{employee_lastName.lower()}'
         user = User(
             username = username,
             password = password,
