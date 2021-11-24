@@ -25,6 +25,9 @@
 .table-products a{
     color: #2263c9;
 }
+.table-products a:hover{
+    color: #2263c9;
+}
 
 .table-products thead td{
     color: #000000;

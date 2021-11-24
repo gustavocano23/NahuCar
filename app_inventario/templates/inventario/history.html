@@ -19,16 +19,6 @@
 {% block container %}
     <div class="container ">
         <div class="row">
-            <div class="filter-box">
-                <form action="" method="">
-                    <div style="display:flex;flex-direction:row;margin:auto;text-align:center;justify-content:center">
-                        <label style="margin:auto;font-Weight:bold;margin-right:5px"for="filter" class="form-label">Acción</label>
-                        <select name="filter" id="filter" class="form-select form-control-chosen">
-                            <option value="">Seleccione el producto</option>          
-                        </select>
-                    </div>
-                </form>
-            </div>
             <!--Tabla de productos-->
             <div class="col-xl-12 col-lg-12 style-general-table">
                 <table class="table-products">
@@ -51,19 +41,22 @@
                                 <td>{{record.id}}</td>
                                 <td>{{record.created_date}}</td>
                                 <td>{{record.inventory.product.product_name}}</td>
-                                <td>{{record.inventory.product.product_price}}</td>
-                                
+                                {% if record.inventory.product.category.category_name == 'Combustible' %}
+                                <td>{{record.inventory.product.product_price}} </td>
+                                {% else %}
+                                <td>{{record.inventory.product.product_price}} c/u.</td>
+                                {% endif %}
                                 {% if record.type_action == '1' %}
-                                    <td class="text-success"> + {{record.quantity}}</td>
+                                    <td style="color: #22c987;"> + {{record.quantity}}</td>
                                 {% elif record.type_action == '2'%}
-                                    <td class="text-danger"> - {{record.quantity}}</td>
+                                    <td style="color: #ca3422;"> - {{record.quantity}}</td>
                                 {% endif %}
 
                                 <td>{{record.inventory.product.category.category_name}}</td>
                                 {% if record.type_action == '1' %}
-                                    <td class="text-success"> {{record.get_type_action_display}}</td>
+                                    <td style="color: #22c987;"> {{record.get_type_action_display}}</td>
                                 {% elif record.type_action == '2'%}
-                                    <td class="text-danger"> {{record.get_type_action_display}}</td>
+                                    <td style="color: #ca3422;"> {{record.get_type_action_display}}</td>
                                 {% endif %}
 
                                
