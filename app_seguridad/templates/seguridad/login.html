@@ -29,13 +29,16 @@
             <form class="form-login" action="{% url 'log_in' %}" method="post" >
                 {% csrf_token %}
                 <h1>Iniciar Sesion</h1>
-                <p class="errorLogin"></p>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Usuario">
-                <input type="text" class="form-control" id="password" name="password" placeholder="Contraseña">
+                {% if mensaje %}
+                <p style="background-color: rgba(202, 52, 34, 0.5);"    class="errorLogin"> {{ mensaje }}</p>
+                {% endif %}
+                <input type="text" class="form-control" id="username" name="username" placeholder="Usuario" required>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" required>
                 <button type="submit" class="button-login">Iniciar Sesion</button>
                 <!-- <p class="mensaje">No tiene Cuenta? <a href="#">Crear Cuenta</a></p> -->
             </form>
         </div>
     </div>
 </body>
+
 </html>

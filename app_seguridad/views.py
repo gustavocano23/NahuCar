@@ -7,9 +7,13 @@ from django.http import HttpResponse
 
 # Verificar si el usuario esta autenticado en nuestra app web
 def page_login(request):
+    
     if request.user.is_authenticated:
-        return redirect(reverse('NahuCar:inventory'))   
+        return redirect(reverse('NahuCar:inventory')) 
+    
+        
     return render(request, 'seguridad/login.html')
+
 
 # Iniciar sesion 
 def log_in(request):
@@ -18,12 +22,16 @@ def log_in(request):
         password = request.POST.get('password')
 
         user = authenticate(username=username, password=password)
-
+        
         if user is not None:
             login(request, user)
             return redirect(reverse('NahuCar:inventory'))   
         else:
-            return redirect('/')
+            mensaje = 'Usuario o Contraseña Incorrecto'
+            ctx = {
+                "mensaje" : mensaje
+            }
+            return render(request, 'seguridad/login.html', ctx)
 
         return HttpResponse(f'Usuario: {user} - Clave: {pawd}')
     else:
