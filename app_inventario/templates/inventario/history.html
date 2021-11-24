@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Historial{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'NahuCar/css/input_search.css' %}">
+    <link rel="stylesheet" href="{% static 'NahuCar/css/form.css' %}">
+    <link rel="stylesheet" href="{% static 'NahuCar/css/table.css' %}">
+    <link rel="stylesheet" href="{% static 'NahuCar/css/filter.css' %}">
+{% endblock css %}
+
+{% block search %}
+    <input type="search" placeholder=" ¿Que desea buscar?">
+{% endblock search %}
+
+
+{% block container %}
+    <div class="container ">
+        <div class="row">
+            <div class="filter-box">
+                <form action="" method="">
+                    <div style="display:flex;flex-direction:row;margin:auto;text-align:center;justify-content:center">
+                        <label style="margin:auto;font-Weight:bold;margin-right:5px"for="filter" class="form-label">Accion</label>
+                        <select name="filter" id="filter" class="form-select form-control-chosen">
+                            <option value="">Seleccione el producto</option>          
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <!--Tabla de productos-->
+            <div class="col-xl-12 col-lg-12 style-general-table">
+                <table class="table-products">
+                
+                    <thead>
+                        <tr>
+                            <td>id</td>
+                            <td>Fecha</td>
+                            <td>Producto</td>
+                            <td>Precio</td>
+                            <td>Cantidad</td>
+                            <td>Categoria</td>
+                            <td>Accion</td>
+                        
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in histories %}
+                            <tr>
+                                <td>{{record.id}}</td>
+                                <td>{{record.created_date}}</td>
+                                <td>{{record.inventory.product.product_name}}</td>
+                                <td>{{record.inventory.product.product_price}}</td>
+                                
+                                {% if record.type_action == '1' %}
+                                    <td class="text-success"> + {{record.quantity}}</td>
+                                {% elif record.type_action == '2'%}
+                                    <td class="text-danger"> - {{record.quantity}}</td>
+                                {% endif %}
+
+                                <td>{{record.inventory.product.category.category_name}}</td>
+                                {% if record.type_action == '1' %}
+                                    <td class="text-success"> {{record.get_type_action_display}}</td>
+                                {% elif record.type_action == '2'%}
+                                    <td class="text-danger"> {{record.get_type_action_display}}</td>
+                                {% endif %}
+
+                               
+                            
+                            </tr>
+                        {% endfor %}
+                         
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+{% endblock container %}
+
+

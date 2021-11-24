@@ -1,0 +1,71 @@
+.box-container{
+    margin: auto;
+}
+
+
+.style-form{
+    height: 80vh;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 10px 10px 32px 0px rgba(0,0,0,0.2);
+    padding: 30px;
+    margin-right: 18px;
+    margin-bottom: 10px;
+    overflow-y: scroll;
+}
+
+.style-form::-webkit-scrollbar{
+    display: none;
+}
+
+.style-form{
+    -ms-overflow-style: none;
+}
+
+
+
+.style-general-table{
+    background-color: #fff;
+    height: 80vh;
+    overflow-y: scroll;
+    border-radius: 10px;
+    box-shadow: 10px 10px 32px 0px rgba(0,0,0,0.2);
+    
+}
+
+/*Ocultar scroll para chrome, safari y opera*/
+.style-general-table::-webkit-scrollbar{
+    display: none;
+}
+
+/*Ocultar scroll para IE, Edge y Firefox*/
+.style-general-table{
+    -ms-overflow-style: none;
+    
+}
+.box-input-product{
+    display: flex;
+    flex-direction: row;
+}
+
+.title-form{
+    text-align:center;
+    margin-bottom: 20px;
+}
+
+.button-style{
+    width: 100%;
+    padding: 10px;
+    background-color: #4550E6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+.border{
+    width: 100%;
+    height: 4px;
+    background-color: #4550E6;
+    margin-bottom: 10px;
+    border: none;
+    
+}
