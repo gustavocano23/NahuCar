@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Empleados{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'NahuCar/css/input_search.css' %}">
+<link rel="stylesheet" href="{% static 'NahuCar/css/form.css' %}">
+<link rel="stylesheet" href="{% static 'NahuCar/css/table.css' %}">
+{% endblock css %}
+
+{% block search %}
+    <form action="{% url 'NahuCar:employee' %}" method="get">
+        <input style="width:100vh;"type="search" name="q" value="{{ q|default_if_none:'' }}" class="form-control" autocomplete="off" placeholder=" ¿Que desea buscar?">
+    </form>
+{% endblock search %}
+
+
+{% block container %}
+<div class="container ">
+    <div class="row box-container">
+        {% if messages %}
+            <div class="alert alert-primary" style="background-color: #ca3422; color: white; width: 92%;" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <!--Formulario-->
+        <div class="col-xl-3 col-lg-12 style-form">
+            <h1 class="title-form">Empleado</h1>
+            <div class="border"></div>
+            {% if employee_by_id %}
+            <form id="form-employee" action="{% url 'NahuCar:update-employee' employee_by_id.id %}" method="post">
+                {% else %}
+                <form id="form-employee" action="{% url 'NahuCar:employee' %}" method="post">
+                    {% endif %}
+
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="employee-dni" class="form-label">Número de identidad</label>
+                        <input type="text" class="form-control" id="employee-dni" name="employee-dni"
+                            value={{employee_by_id.dni}}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="employee-name" class="form-label">Nombre del empleado</label>
+                        <input type="text" class="form-control" id="employee-name" name="employee-name"
+                            value={{employee_by_id.first_name}}>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="employee-last-name" class="form-label">Apellido del empleado</label>
+                        <input type="text" class="form-control" id="employee-last-name" name="employee-last-name"
+                            value={{employee_by_id.last_name}}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="employee-telphone" class="form-label">Teléfono del empleado</label>
+                        <input type="text" class="form-control" id="employee-telphone" name="employee-telphone"
+                            value={{employee_by_id.telphone}}>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="employee-address" class="form-label">Dirección del empleado</label>
+                        <textarea class="form-control" id="employee-address"
+                            name="employee-address">{{employee_by_id.address}}</textarea>
+                    </div>
+
+                    <div class="box-button">
+                        {% if employee_by_id %}
+                        <button id="btn-save-employee" type="button" class="button-style">Actualizar Empleado</button>
+                        {% else %}
+                        <button id="btn-save-employee" type="button" class="button-style">Guardar Empleado</button>
+                        {% endif %}
+
+                    </div>
+                </form>
+        </div>
+        <!--Tabla de productos-->
+        <div class="col-xl-8 col-lg-12 style-general-table">
+
+
+            <table class="table-products">
+                <thead>
+                    <tr>
+                        <td>DNI</td>
+                        <td>Nombre</td>
+                        <td>Apellido</td>
+                        <td>Direción</td>
+                        <td>Teléfono</td>
+                        <td>Editar / Eliminar</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employee in employees %}
+                    <tr>
+                        <td>{{employee.dni}}</td>
+                        <td>{{employee.first_name}}</td>
+                        <td>{{employee.last_name}}</td>
+                        <td>{{employee.address}}</td>
+                        <td>{{employee.telphone}}</td>
+                        <td>
+                            <a href="{% url 'NahuCar:update-employee' employee.id %}"><i style="color:#22c987"
+                                    class="fas fa-edit"></i></a>
+                            <a href="{% url 'NahuCar:delete-employee' employee.id %}"><i style="color:#ca3422"
+                                    class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+{% endblock container %}
+
+{% block js %}
+<script src="{% static 'NahuCar/js/employee.js' %}"></script>
+{% endblock js %}

@@ -2,17 +2,100 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'NahuCar/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'NahuCar/css/menu.css' %}">
+    <link href="https://haubek.github.io/dist/css/component-chosen.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet'>
+    {% block css %}{% endblock css %}
 </head>
-<body>
-    {% block container %}{% endblock container %}
 
+<body id="body">
+    <header id="header">
+        <!--Boton para acceder al menu-->
+        <div class="icon-menu">
+            <i class="fas fa-bars" id="btn-open"></i>
+        </div>
+        {% block search %}{% endblock search %}
+    </header>
+
+    <div class="menu-side" id="menu-side">
+
+        <div class="options-menu">
+
+            <a href="{% url 'NahuCar:inventory' %}">
+                <div class="option">
+                    <i class="fas fa-gas-pump" title="Combustible"></i>
+                    <h4>Inventario</h4>
+                </div>
+            </a>
+            <!--Selected-->
+            
+
+            {% if request.user.is_superuser %}
+                <a href="{% url 'NahuCar:products' %}">
+                    <div class="option">
+                        <i class="fas fa-shopping-cart" title="Producto"></i>
+                        <h4>Producto</h4>
+                    </div>
+                </a>
+
+                <a href="{% url 'NahuCar:employee' %}">
+                    <div class="option">
+                        <i class="far fa-user" title="Empleado"></i>
+                        <h4>Empleados</h4>
+                    </div>
+                </a>
+            {% endif %}
+            <a href="{% url 'NahuCar:history' %}">
+                <div class="option">
+                    <i class="far fa-clipboard" title="Historial"></i>
+                    <h4>Historial</h4>
+                </div>
+            </a>
+
+            <a href="{% url 'log_out'%}">
+                <div class="option">
+                    <i class="fas fa-sign-out-alt" title="Cerrar-sesion"></i>
+                    <h4>Cerrar Sesión</h4>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <main>
+        {% block container %}{% endblock container %}
+    </main>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'NahuCar/js/41bcea2ae3.js' %}" crossorigin="anonymous"></script>
     <script src="{% static 'NahuCar/bootstrap/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'NahuCar/js/menu.js' %}"></script>
+    <script src="https://haubek.github.io/dist/js/chosen.jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"> </script>
+
+    <script>
+        $(function () {
+            $('.form-control-chosen').chosen();
+
+            setTimeout(() => {
+                $('.alert').slideUp(function () {
+                    $(this).remove();
+                });
+            }, 3000)
+        });
+    </script>
+    {% block js %}{% endblock js %}
+
 
 </body>
+
 </html>
