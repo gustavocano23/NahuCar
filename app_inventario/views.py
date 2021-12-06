@@ -134,7 +134,7 @@ def inventory(request,uid=None):
     if (request.method == "GET" and uid is None):
         categories =Categories.objects.all()
         products =  Product.objects.all()
-        inventory = Inventories.objects.all()
+        inventory = Inventories.objects.filter(product__product_active='1')
         history = InventoriesHistory.objects.all()
         
         # Obtiene el valor a buscar
@@ -159,11 +159,11 @@ def inventory(request,uid=None):
                     if Product.objects.filter(category=x):
                         inventory = Inventories.objects.filter(product__category=x)
                     elif inventario=="":
-                        inventory = Inventories.objects.all()
+                        inventory = Inventories.objects.filter(product__product_active='1')
             else:
-                inventory = Inventories.objects.all()
+                inventory = Inventories.objects.filter(product__product_active='1')
         else:
-            inventory = Inventories.objects.all()
+            inventory = Inventories.objects.filter(product__product_active='1')
 
         ctx = {
             "count_categories": len(categories), 
@@ -178,7 +178,7 @@ def inventory(request,uid=None):
         products =  Product.objects.all()
         history = InventoriesHistory.objects.all()
         inventory_by_id = get_object_or_404(Inventories, pk=uid)
-        inventory = Inventories.objects.all()
+        inventory = Inventories.objects.filter(product__product_active=1)
 
         ctx = {
             "count_categories": len(categories), 
